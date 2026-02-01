@@ -7,31 +7,38 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+    <video autoplay muted loop id="myVideo">
+  <source src="images/vecteezy_retro-style-game-pattern-grid-background_2015090.mp4" type="video/mp4">
+</video>
         <div class="navbar">
             <div class="navbar_content">
                 <div class="navbar_brand">
-                    <img src="images/space_invaders.png" alt="Logo">
+                    <a href="#home">
+                    <img src="images/space_invaders.png" alt="Logo"></a>
                 </div>
             <ul>
-                <li><a href="#">HOME</a></li>
-                <li><a href="#">ABOUT</a></li>
-                <li><a href="#">GAMES</a></li>
-                <li><a href="#">MAP</a></li>
-                <li><a href="#">CONTACT</a></li>
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#games">GAMES</a></li>
+                <li><a href="#map">MAP</a></li>
+                <li><a href="#contact">CONTACT</a></li>
             </ul>
             </div>
         </div>
 
-    <div class="hero-section">
-        <h1>RETRO VIDEO IGRE</h1>
-        <h3>PRESS SPACE TO START</h3>
+    <div class="hero-section" id="home">
+        <h1 class="floating retro">RETRO VIDEO IGRE</h1>
+        <h3 class="flash">PRESS SPACE TO START</h3>
         </div>
-    <div class="about-section">
-        <h2>ABOUT US</h2>
-        <h3>Zlatno doba igara</h3>
-        <p>Tokom 80-ih i 90-ih godina pojavile su se arkadne masine i prve konzole koje su uvele video igre u domove sirom sveta.</p>
-        <p>Mnoge igre iz tog perioda i danas se igraju zbog svoje jednostavnosti i izazova</p>
+    <div class="about-section" id="about">
+        <div class="text retro">
+        <h2 class="floating">ABOUT US</h2>
+<p>Tokom 80-ih i 90-ih godina pojavile su se arkadne masine i prve konzole koje su uvele video igre u domove sirom sveta.</p>
+<p>Mnoge igre iz tog perioda i danas se igraju zbog svoje jednostavnosti i izazova.</p>
+<p>To je bilo zlatno doba retro gejminga, kada su naslovi poput Pac-Man, Super Mario, Tetris i Sonic postali globalni fenomeni.</p>
+<p>Grafika je bila pikselizovana, zvukovi jednostavni, ali su igre nudile sate zabave i zahtevale dobru koncentraciju i brze reflekse.</p>
+<p>Retro igre su obeležile početak gejminga i donele jednostavnu, ali nezaboravnu zabavu. Njihov piksel stil i izazovna igrivost i danas imaju posebnu čar.</p>
+        </div>
         <img src="images/RetroArcade.jpg" alt="Arkade">
     </div>
 
@@ -42,7 +49,7 @@
         <p>Igrači su morali da razviju veštinu, strpljenje i brze reflekse.</p>
     </div>
 
-    <div class="games-carousel">
+    <div class="games-carousel" id="games">
         <h2>Nase video igre!</h2>
     <h3>Ne stidite se, slobodno kliknite na jednu!</h3>
 
@@ -56,14 +63,14 @@
 
     </div>
 
-    <div class="map-section">
+    <div class="map-section" id="map">
         <h2>Gde naci retro video igre?</h2>
         <p>Ovde mozete naci lokacije retro gejming zajednice i igraonica gde mozete pronaci retro video igre</p>
         <p>Retro kultura i danas okuplja ljude sirom sveta.</p>
         <!--gugl mapa ovde-->
     </div>
 
-    <div class="contact-form">
+    <div class="contact-form" id="contact">
         <h2>Kontaktirajte nas!</h2>
         <p>Ukoliko zelite da predlozite neku retro igru, podelite uspomene iz igraonica ili postavite pitanje, mozete nas kontaktirati putem forme.</p>
         <p>Radujemo se vasim porukama i retro pricama!</p>
