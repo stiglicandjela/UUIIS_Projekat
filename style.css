@@ -27,6 +27,7 @@ body{
     color: var(--color-text);
     background-image: url("images/BlackKira_GettyImages_PocetnaPozadina.jpg");
     background-attachment: fixed;
+    cursor: url("images/cursor1.png") 0 0, auto;
 }
 
 #myVideo {
@@ -72,7 +73,9 @@ a {
   position: relative;
   transition: all 0.5s ease;
   text-shadow: none;
+  cursor: url("images/cursor2.png"), pointer;
 }
+
 
 a::before,
 a::after {
@@ -214,4 +217,351 @@ a:hover::after {
   font-size: 20px;
   text-align: justify;
   margin: 0;
+}
+
+.fun-fact {
+  width: 90%;
+  max-width: 700px;
+  height: auto;
+  background: rgba(143, 1, 119, 0.55);
+  border: 4px solid var(--navbar-pozadina-border);
+  box-shadow:
+    6px 6px 0px var(--zuta),
+    12px 12px 0px var(--crvena);
+  backdrop-filter: blur(8px);
+  margin: 60px auto;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: center;
+  justify-content: center;
+  border-radius: 12px;
+  position: relative;
+}
+
+.fun-fact::before {
+  content: "★";
+  position: absolute;
+  top: -15px;
+  left: 15px;
+
+  font-size: 64px;
+  color: var(--zuta);
+  text-shadow: 2px 2px black;
+}
+
+.fun-fact h2 {
+  font-size: 48px;
+  color: #fff;
+  text-shadow:
+    3px 3px 0px black,
+    0 0 8px magenta;
+  letter-spacing: 2px;
+}
+
+.fun-fact h3 {
+  font-size: 18px;
+  color: var(--zuta);
+  text-shadow: 2px 2px black;
+}
+
+.fun-fact p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+
+.games-carousel{
+  width: 100%;
+  height:570px;
+  background:rgba(54, 1, 133, 0.35);;
+  border-top: 3px solid var(--navbar-pozadina-border);
+  border-bottom: 3px solid var(--navbar-pozadina-border);
+  backdrop-filter: blur(var(--blur-value));
+  flex-direction: row;
+  padding:60px 0px;
+  text-align: center;
+
+}
+
+.games-carousel h2 {
+  font-size: 52px;
+  margin-bottom: 20px;
+  color: white;
+  letter-spacing: 3px;
+  margin-bottom: 80px;
+}
+
+.group{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4.5em;
+  animation: spin 5s infinite linear;
+  min-width: 100%;
+}
+
+.carousel{
+  display: flex;
+  margin: 100px auto;
+  width: 100%;
+  display: flex;
+  overflow-x: hidden;
+}
+
+.carousel::-webkit-scrollbar{
+  display:none;
+}
+
+.card{
+  flex: 0 0 auto;
+  height: 300px;
+  width: 300px;
+  cursor: url("images/cursor2.png"), pointer;
+  box-shadow:
+    2px 2px 0px black,
+    4px 4px 0px black,
+    6px 6px 0px black;;
+}
+
+.card img{
+  height: 300px;
+  width: 300px;
+}
+
+@keyframes spin {
+  from{
+    transform: translateX(0);
+  }
+  to{
+    transform: translateX(-100%);
+  }
+}
+
+.map-section{
+  width: 100%;
+  height: 600px;
+  background-color: var(--tamno-ljubicasta);
+  border-top: 5px solid var(--navbar-pozadina-border);
+  border-bottom: 5px solid var(--navbar-pozadina-border);
+  backdrop-filter: blur(var(--blur-value));
+  display:flex;
+  flex-direction: column;
+  padding: 20px;
+  margin-top: 200px;
+}
+
+
+.map-section .text{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-left: auto;
+  padding: 20px;
+}
+
+.map-section h2{
+  font-size: 40px;
+  text-align: center;
+}
+
+.map-section p{
+  padding: 0;
+  margin: 0 auto 20px;
+  max-width: 900px;
+
+  font-size: 16px;
+  line-height: 2;
+}
+
+.map-wrap{
+  width: 80%;
+  height: 500px;
+  margin: 20px auto;
+  border: 4px solid #fff;
+  overflow: hidden;
+}
+
+.map-wrap iframe{
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+
+  .contact-form {
+  width: 90%;
+  max-width: 700px;
+  margin: 120px auto;
+  padding: 40px 30px;
+
+  background: rgba(54, 1, 133, 0.45);
+  backdrop-filter: blur(var(--blur-value));
+
+  border: 4px solid black;
+  border-radius: 20px;
+
+  box-shadow:
+    8px 8px 0px var(--crvena),
+    16px 16px 0px var(--zuta);
+
+  text-align: center;
+}
+
+.contact-form h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+
+  letter-spacing: 3px;
+  color: white;
+
+  text-shadow:
+    3px 3px 0px black,
+    0 0 10px magenta,
+    0 0 20px cyan;
+}
+
+.contact-form p {
+  font-size: 14px;
+  line-height: 1.8;
+  margin-bottom: 15px;
+
+  color: var(--color-text);
+  text-shadow: 2px 2px black;
+}
+
+.contact-form form {
+  margin-top: 30px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.contact-form label {
+  font-size: 12px;
+  text-align: left;
+
+  color: var(--zuta);
+  text-shadow: 2px 2px black;
+}
+
+.contact-form input {
+  height: 45px;
+  padding: 10px;
+
+  font-family: "Press Start 2P", system-ui;
+  font-size: 12px;
+
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+
+  border: 3px solid black;
+  border-radius: 10px;
+
+  box-shadow:
+    inset 3px 3px 0px black,
+    inset -3px -3px 0px rgba(255,255,255,0.1);
+
+  outline: none;
+}
+
+.contact-form input:focus {
+  border-color: var(--zuta);
+  box-shadow:
+    0 0 10px var(--zuta),
+    inset 3px 3px 0px black;
+}
+
+.contact-form textarea {
+  min-height: 120px;
+  resize: none;
+}
+
+.contact-form button {
+  margin-top: 20px;
+  padding: 15px;
+
+  font-family: "Press Start 2P";
+  font-size: 12px;
+
+  background: var(--crvena);
+  color: white;
+
+  border: 4px solid black;
+  border-radius: 12px;
+
+  cursor: url("images/cursor2.png"), pointer;
+
+  box-shadow:
+    4px 4px 0px black,
+    8px 8px 0px var(--zuta);
+
+  transition: transform 0.2s ease;
+}
+
+.contact-form button:hover {
+  transform: translate(-2px, -2px);
+}
+
+footer{
+  padding: 20px;
+  text-align: center;
+  font-size: 24px;
+  background-color: var(--navbar-pozadina);
+  border: 3px solid var(--navbar-pozadina-border);
+  backdrop-filter: blur(var(--blur-value));
+}
+
+
+.gallery-info {
+  width: 80%;
+  margin: 60px auto;
+  padding: 30px;
+  text-align: center;
+  background: rgba(54, 1, 133, 0.4);
+  border: 3px solid var(--navbar-pozadina-border);
+  backdrop-filter: blur(var(--blur-value));
+}
+
+.gallery-info p {
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.gallery-info ul {
+  margin-top: 20px;
+}
+
+.gallery-info li {
+  display: block;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.gallery-grid {
+  width: 90%;
+  margin: 80px auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.gallery-grid img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border: 4px solid black;
+  box-shadow:
+    4px 4px 0px black,
+    8px 8px 0px var(--crvena);
+  cursor: url("images/cursor2.png"), pointer;
+  transition: transform 0.2s ease;
+}
+
+.gallery-grid img:hover {
+  transform: translate(-3px, -3px);
 }

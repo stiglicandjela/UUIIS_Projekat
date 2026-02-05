@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retro video igre</title>
+    <title>🎮 Retro video igre 🎮</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <video autoplay muted loop id="myVideo">
   <source src="images/vecteezy_retro-style-game-pattern-grid-background_2015090.mp4" type="video/mp4">
-</video>
+    </video>
         <div class="navbar">
             <div class="navbar_content">
                 <div class="navbar_brand">
@@ -19,8 +19,10 @@
             <ul>
                 <li><a href="#home">HOME</a></li>
                 <li><a href="#about">ABOUT</a></li>
-                <li><a href="#games">GAMES</a></li>
-                <li><a href="#map">MAP</a></li>
+                <li><a href="#games">CATALOG</a></li>
+                <li><a href="#map-section">MAP</a></li>
+                <li><a href="galery.html">GALLERY</a></li>
+                <li><a href="#">GAME</a></li>
                 <li><a href="#contact">CONTACT</a></li>
             </ul>
             </div>
@@ -33,54 +35,74 @@
     <div class="about-section" id="about">
         <div class="text retro">
         <h2 class="floating">ABOUT US</h2>
-<p>Tokom 80-ih i 90-ih godina pojavile su se arkadne masine i prve konzole koje su uvele video igre u domove sirom sveta.</p>
-<p>Mnoge igre iz tog perioda i danas se igraju zbog svoje jednostavnosti i izazova.</p>
-<p>To je bilo zlatno doba retro gejminga, kada su naslovi poput Pac-Man, Super Mario, Tetris i Sonic postali globalni fenomeni.</p>
-<p>Grafika je bila pikselizovana, zvukovi jednostavni, ali su igre nudile sate zabave i zahtevale dobru koncentraciju i brze reflekse.</p>
-<p>Retro igre su obeležile početak gejminga i donele jednostavnu, ali nezaboravnu zabavu. Njihov piksel stil i izazovna igrivost i danas imaju posebnu čar.</p>
+        <p>Tokom 80-ih i 90-ih godina pojavile su se arkadne mašine i prve konzole koje su uvele video igre u domove širom sveta.</p>
+        <p>Mnoge igre iz tog perioda i danas se igraju zbog svoje jednostavnosti i izazova.</p>
+        <p>To je bilo zlatno doba retro gejminga, kada su naslovi poput Pac-Man-a, Super Maria, Tetrisa i Sonic-a postali globalni fenomeni.</p>
+        <p>Grafika je bila pikselizovana, zvukovi jednostavni, ali su igre nudile sate zabave i zahtevale dobru koncentraciju i brze reflekse.</p>
+        <p>Retro igre su obeležile početak gejminga i donele jednostavnu, ali nezaboravnu zabavu. Njihov piksel stil i izazovna igrivost i danas imaju posebnu čar.</p>
         </div>
         <img src="images/RetroArcade.jpg" alt="Arkade">
     </div>
 
-    <div class="fun-fact">
-        <h2>FUN FACT</h2>
+    <div class="fun-fact retro">
+        <h2 class="retro floating">FUN FACT</h2>
         <h3>Da li ste znali?</h3>
-        <p>Retro igre su cesto bile mnogo teže od modernih, jer nisu imale opciju čuvanja napretka.</p>
+        <p>Retro igre su često bile mnogo teže od modernih, jer nisu imale opciju čuvanja napretka.</p>
         <p>Igrači su morali da razviju veštinu, strpljenje i brze reflekse.</p>
     </div>
 
     <div class="games-carousel" id="games">
-        <h2>Nase video igre!</h2>
-    <h3>Ne stidite se, slobodno kliknite na jednu!</h3>
+        <h2 class="retro floating">NAŠE VIDEO IGRE!</h2>
+    <h3 class="retro floating">Ne stidite se, slobodno kliknite na jednu!</h3>
 
         <div class="carousel">
-
-           <img src="images/flappyBird.jpg" alt="Flappy Bird">
-           <img src="images/SpaceInvaders.jpg" alt="Space Invaders">
-           <img src="images/Pong.jpg" alt="Ping Pong">
-           <img src="images/Pacman.jpg" alt="Pacman">
+            <div class="group">
+                <div class="card"><img src="images/flappyBird.jpg" alt="Flappy Bird"></div>
+                <div class="card"><img src="images/SpaceInvaders.jpg" alt="Space Invaders"></div>
+                <div class="card"><img src="images/Pong.jpg" alt="Ping Pong"></div>
+                <div class="card"><img src="images/Pacman.jpg" alt="Pacman"></div>
+                <div class="card"><img src="images/dino.png" alt="Pacman"></div>
+            </div>
+           <div aria-hidden class="group">
+                <div class="card"><img src="images/flappyBird.jpg" alt="Flappy Bird"></div>
+                <div class="card"><img src="images/SpaceInvaders.jpg" alt="Space Invaders"></div>
+                <div class="card"><img src="images/Pong.jpg" alt="Ping Pong"></div>
+                <div class="card"><img src="images/Pacman.jpg" alt="Pacman"></div>
+                <div class="card"><img src="images/dino.png" alt="Pacman"></div>
+        
+            </div>
         </div>
 
     </div>
 
-    <div class="map-section" id="map">
-        <h2>Gde naci retro video igre?</h2>
-        <p>Ovde mozete naci lokacije retro gejming zajednice i igraonica gde mozete pronaci retro video igre</p>
-        <p>Retro kultura i danas okuplja ljude sirom sveta.</p>
-        <!--gugl mapa ovde-->
+    <div class="map-section" id="map-section">
+        <h2 class="floating retro">Gde naći retro video igre?</h2>
+        <p class="retro">Ovde možete naći lokacije retro gejming zajednice i igraonica gde mozete pronaći retro video igre.</p>
+        <p class="retro">Retro kultura i danas okuplja ljude širom sveta.</p>
+        <div class="map-wrap">
+        <iframe
+             title="Google mapa"
+             src="https://www.google.com/maps?q=44.8176,20.4569&z=14&output=embed"
+             loading="lazy"
+             referrerpolicy="no-referrer-when-downgrade"
+             allowfullscreen>
+  </iframe>
+</div>
+
     </div>
 
     <div class="contact-form" id="contact">
         <h2>Kontaktirajte nas!</h2>
-        <p>Ukoliko zelite da predlozite neku retro igru, podelite uspomene iz igraonica ili postavite pitanje, mozete nas kontaktirati putem forme.</p>
-        <p>Radujemo se vasim porukama i retro pricama!</p>
+        <p>Ukoliko želite da predložite neku retro igru, podelite uspomene iz igraonica ili postavite pitanje, možete nas kontaktirati putem forme.</p>
+        <p>Radujemo se vašim porukama i retro pričama!</p>
         <form action="#">
             <label for="email">Email:</label>
-            <input type="Email" required id="email" class="email">
+            <input type="email" required id="email" class="email">
             <label for="title">Naslov:</label>
             <input type="text" required id="title" class="title">
             <label for="content">Vasa poruka:</label>
-            <input type="text" id="content" class="content">
+            <textarea name="poruka" id="content" class="content"></textarea>
+            <button type="submit">POSALJI PORUKU</button>
         </form>
     </div>
 
@@ -88,8 +110,6 @@
         Retro Video Igre &#169; 2026
     </footer>
 
+<script src="script.js" defer></script>
 </body>
-
-
-
 </html>
