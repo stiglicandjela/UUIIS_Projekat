@@ -115,6 +115,7 @@ function update(){
                 bullet.used = true;
                 alien.alive = false;
                 alienCount--;
+                score +=100;
             }
         }
     }
@@ -133,6 +134,11 @@ function update(){
         bulletArray = [];
         createAliens();
     }
+
+    // score
+    context.fillStyle = "white";
+    context.font = "16px 'Press Start 2P'";
+    context.fillText(score,5,20);
 
 }
 
