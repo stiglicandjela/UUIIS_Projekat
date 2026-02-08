@@ -28,7 +28,8 @@ let alienWidth = tileSize*2;
 let alienHeight = tileSize;
 let alienX = tileSize;
 let alienY = tileSize;
-let alienImg;
+let alienImgs = []; // lista mogucih vanzemaljaca
+
 
 let alienRows = 2;
 let alienColumns = 3;
@@ -56,12 +57,23 @@ window.onload = function(){
     context.drawImage(shipImg,ship.x,ship.y,ship.width,ship.height);
 }
 
-    alienImg = new Image();
-    alienImg.src = "imagesSI/alien.png";
+    alienImgs = [new Image(),new Image(),new Image(),new Image()];
+    alienImgs[0].src = "imagesSI/alien.png";
+    alienImgs[1].src = "imagesSI/alien-cyan.png"; 
+    alienImgs[2].src = "imagesSI/alien-magenta.png";
+    alienImgs[3].src = "imagesSI/alien-yellow.png";
 
-    createAliens();
-
-    this.requestAnimationFrame(update);
+    //kreni tek kad se ucita
+    let loaded = 0;
+    for (let img of alienImgs) {
+        img.onload = () => {
+        loaded++;
+        if (loaded === alienImgs.length) {
+        createAliens();
+        requestAnimationFrame(update);
+    }
+  };
+}
     this.document.addEventListener("keydown", moveShip);
     this.document.addEventListener("keyup", shoot);
 }
@@ -92,7 +104,7 @@ function update(){
                     alienArray[j].y+=alienHeight;
                 }
             }
-            context.drawImage(alienImg,alien.x,alien.y,alien.width,alien.height);
+            context.drawImage(alien.img, alien.x, alien.y, alien.width, alien.height);
 
             if(alien.y>=ship.y){
                 gameOver = true;
@@ -101,28 +113,33 @@ function update(){
     }
 
 
-    //metci
-    for(let i=0;i<bulletArray.length;i++){
-        let bullet = bulletArray[i];
-        bullet.y+=bulletVelocityY;
-        context.fillStyle="white";
-        context.fillRect(bullet.x,bullet.y,bullet.width,bullet.height);
+   for (let i = bulletArray.length - 1; i >= 0; i--) {
+     let bullet = bulletArray[i];
+    bullet.y += bulletVelocityY;
 
-        //kolizija metka sa vanzemaljcem
-        for(let j=0;j<alienArray.length;j++){
-            let alien = alienArray[j];
-            if(!bullet.used && alien.alive && detectCollision(bullet,alien)){
-                bullet.used = true;
-                alien.alive = false;
-                alienCount--;
-                score +=100;
-            }
-        }
+    context.fillStyle = "white";
+    context.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+
+    // kolizija
+    for (let j = 0; j < alienArray.length; j++) {
+        let alien = alienArray[j];
+        if (alien.alive && detectCollision(bullet, alien)) {
+            alien.alive = false;
+            alienCount--;
+            score += 100;
+
+            bulletArray.splice(i, 1); // ✅ metak odmah nestaje
+            break;
     }
-    //obrisi metke
-    while(bulletArray>0 && (bulletArray[0].used || bulletArray[0].y<0)){
-        bulletArray.shift(); // obrise prvi element niza
-    }
+  }
+
+  // van ekrana
+  if (bullet.y + bullet.height < 0) {
+    bulletArray.splice(i, 1);
+  }
+}
+
+
 
     //sledeci nivo
     if(alienCount == 0){
@@ -157,7 +174,7 @@ function createAliens(){
     for(let c=0;c<alienColumns;c++){
         for(let r=0;r<alienRows;r++){
             let alien = {
-                img: alienImg,
+                img: alienImgs[Math.floor(Math.random() * alienImgs.length)],
                 x : alienX + c*alienWidth,
                 y : alienY + r*alienHeight,
                 width : alienWidth,
