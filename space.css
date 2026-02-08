@@ -27,7 +27,6 @@ body {
   text-align: center;
   background-image: url("images/BlackKira_GettyImages_PocetnaPozadina.jpg");
   background-attachment: fixed;
-  cursor: url("images/cursor1.png") 0 0, auto;
 }
 
 .navbar{
@@ -52,7 +51,6 @@ a {
   position: relative;
   transition: all 0.5s ease;
   text-shadow: none;
-  cursor: url("images/cursor2.png"), pointer;
 }
 
 .navbar_content{

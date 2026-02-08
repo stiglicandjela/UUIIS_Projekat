@@ -25,7 +25,6 @@ body{
      font-style: normal;
     line-height: 1.5;
     color: var(--color-text);
-    cursor: url("images/cursor1.png") 0 0, auto;
 }
 
 #myVideo {
@@ -70,7 +69,6 @@ a {
   position: relative;
   transition: all 0.5s ease;
   text-shadow: none;
-  cursor: url("images/cursor2.png"), pointer;
 }
 
 
@@ -272,7 +270,7 @@ a:hover::after {
 
 .games-carousel{
   width: 100%;
-  height:570px;
+  height:600px;
   background:rgba(54, 1, 133, 0.35);;
   border-top: 3px solid var(--navbar-pozadina-border);
   border-bottom: 3px solid var(--navbar-pozadina-border);
@@ -316,7 +314,6 @@ a:hover::after {
   flex: 0 0 auto;
   height: 300px;
   width: 300px;
-  cursor: url("images/cursor2.png"), pointer;
   box-shadow:
     2px 2px 0px black,
     4px 4px 0px black,
@@ -336,6 +333,21 @@ a:hover::after {
     transform: translateX(-100%);
   }
 }
+.carousel:hover .group,
+.card:hover ~ .group {
+  animation-play-state: paused;
+}
+
+.carousel:hover .group {
+  animation-play-state: paused;
+}
+
+.card a{
+  display:block;
+  position: relative;
+  z-index: 2;
+}
+
 
 .map-section{
   width: 100%;
@@ -490,8 +502,6 @@ a:hover::after {
   border: 4px solid black;
   border-radius: 12px;
 
-  cursor: url("images/cursor2.png"), pointer;
-
   box-shadow:
     4px 4px 0px black,
     8px 8px 0px var(--zuta);
@@ -555,7 +565,6 @@ footer{
   box-shadow:
     4px 4px 0px black,
     8px 8px 0px var(--crvena);
-  cursor: url("images/cursor2.png"), pointer;
   transition: transform 0.2s ease;
 }
 
