@@ -60,6 +60,7 @@ window.onload = function(){
 
     this.requestAnimationFrame(update);
     this.document.addEventListener("keydown", moveShip);
+    this.document.addEventListener("keyup", shoot);
 }
 
 function update(){
@@ -87,6 +88,20 @@ function update(){
             context.drawImage(alienImg,alien.x,alien.y,alien.width,alien.height);
         }
     }
+
+
+    //metci
+    for(let i=0;i<bulletArray.length;i++){
+        let bullet = bulletArray[i];
+        bullet.y+=bulletVelocityY;
+        context.fillStyle="white";
+        context.fillRect(bullet.x,bullet.y,bullet.width,bullet.height);
+    }
+    //obrisi metke
+    while(bulletArray>0 && (bulletArray[0].used || bulletArray[0].y<0)){
+        bulletArray.shift(); // obrise prvi element niza
+    }
+
 }
 
 function moveShip(e){
@@ -124,5 +139,16 @@ function shoot(e) {
             height: tileSize/2,
             used: false
         }
+
+    bulletArray.push(bullet);
+
     }
+}
+
+// kolizija za dva pravougaonika
+function detectCollision(a,b){
+    return a.x<b.x+b.width && // gornje levo od A ne dostize gornje desno od B
+        a.x+a.width>b.x &&      // gornje desno od A prestize gornje levo od B
+        a.y<b.y+b.height &&     // gornje levo od A ne dostize donje levo of B
+        a.y +a.height>b.y;  // donje levo od A prestize gornje levo od B
 }
