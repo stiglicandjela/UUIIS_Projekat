@@ -46,11 +46,66 @@ let alienBulletVelocityY = 1.8;
 let alienShootCooldown = 0;  
 let alienShootRate = 55;        // sto manji broj to vise pucaju
 
-// zivoti / stit
+// zivoti 
 let lives = 3;
-
 let score = 0;
 let gameOver = false;
+
+// ===== SFX (pucanje + pogodak) =====
+const shootSfx = new Audio("sounds/shoot.wav");
+const hitSfx   = new Audio("sounds/invaderkilled.wav");
+const hurtSfx = new Audio("sounds/explosion.wav");
+
+function playHurt() {
+  if (!audioUnlocked) return;
+  const s = hurtSfx.cloneNode();
+  s.volume = 0.7;
+  s.play().catch(()=>{});
+}
+
+let audioUnlocked = false;
+
+function unlockAudio() {
+  if (audioUnlocked) return;
+  audioUnlocked = true;
+
+  shootSfx.volume = 0.5;
+  hitSfx.volume = 0.6;
+
+  shootSfx.play().then(() => {
+    shootSfx.pause();
+    shootSfx.currentTime = 0;
+  }).catch(() => {});
+
+  hitSfx.play().then(() => {
+    hitSfx.pause();
+    hitSfx.currentTime = 0;
+  }).catch(() => {});
+
+  hurtSfx.volume = 0.7;
+
+  hurtSfx.play().then(() => {
+  hurtSfx.pause();
+  hurtSfx.currentTime = 0;
+ }).catch(() => {});
+
+}
+
+// helper da ne "secka" kad se puca brzo
+function playShoot() {
+  if (!audioUnlocked) return;
+  const s = shootSfx.cloneNode();
+  s.volume = 0.5;
+  s.play().catch(()=>{});
+}
+
+function playHit() {
+  if (!audioUnlocked) return;
+  const s = hitSfx.cloneNode();
+  s.volume = 0.6;
+  s.play().catch(()=>{});
+}
+
 
 window.onload = function(){
     board = this.document.getElementById("board");
@@ -84,6 +139,8 @@ window.onload = function(){
 }
     this.document.addEventListener("keydown", moveShip);
     this.document.addEventListener("keyup", shoot);
+    document.addEventListener("keydown", unlockAudio, { once: true });
+
 }
 
 function update(){
@@ -128,7 +185,7 @@ function update(){
         alienShootCooldown = alienShootRate;
     }
 
-    // ================= PLAYER BULLETS =================
+    // ================= PUCANJE IGRACA =================
     for(let i = bulletArray.length - 1; i >= 0; i--){
         let bullet = bulletArray[i];
         bullet.y += bulletVelocityY;
@@ -142,6 +199,7 @@ function update(){
             if(alien.alive && detectCollision(bullet, alien)){
                 alien.alive = false;
                 alienCount--;
+                playHit();
                 score += 100;
                 bulletArray.splice(i, 1);
                 break;
@@ -154,7 +212,7 @@ function update(){
         }
     }
 
-    // ================= ALIEN BULLETS =================
+    // ================= PUCANJE VANZEMALJACA =================
     for(let i = alienBulletArray.length - 1; i >= 0; i--){
         let b = alienBulletArray[i];
         b.y += alienBulletVelocityY;
@@ -165,6 +223,7 @@ function update(){
         let shipRect = { x: ship.x, y: ship.y, width: ship.width, height: ship.height };
         if(detectCollision(b, shipRect)){
             alienBulletArray.splice(i, 1);
+            playHurt();
                 lives--;
                 if(lives <= 0){
                     gameOver = true;
@@ -177,7 +236,7 @@ function update(){
         }
     }
 
-    // ================= NEXT LEVEL =================
+    // ================= SLEDECI NIVO =================
     if(alienCount === 0){
         alienColumns = Math.min(alienColumns + 1, columns / 2 - 2);
         alienRows = Math.min(alienRows + 1, rows - 4);
@@ -256,6 +315,7 @@ function shoot(e) {
         }
 
     bulletArray.push(bullet);
+    playShoot(); 
 
     }
 }
@@ -291,4 +351,3 @@ function drawGameOverScreen() {
   context.textAlign = "left";
   context.textBaseline = "alphabetic";
 }
-
