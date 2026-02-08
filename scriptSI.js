@@ -40,6 +40,16 @@ let alienVelocityX = 1; // brzina kretanja vanzemaljca
 let bulletArray = [];
 let bulletVelocityY = -10; // brzina metaka
 
+// metci vanzemaljaca
+let alienBulletArray = [];
+let alienBulletVelocityY = 1.8;
+let alienShootCooldown = 0;  
+let alienShootRate = 55;        // sto manji broj to vise pucaju
+
+// zivoti / stit
+let lives = 3;
+
+
 let score = 0;
 let gameOver = false;
 
@@ -76,87 +86,120 @@ window.onload = function(){
 }
     this.document.addEventListener("keydown", moveShip);
     this.document.addEventListener("keyup", shoot);
+    document.addEventListener("keydown", function(e){
+    if (e.code === "KeyR") restartGame();
+    });
+
 }
 
 function update(){
     requestAnimationFrame(update);
 
     if(gameOver){
+        drawGameOverScreen?.(); 
         return;
     }
 
     context.clearRect(0,0,board.width,board.height);
 
-    context.drawImage(shipImg,ship.x,ship.y,ship.width,ship.height);
+    // brod
+    context.drawImage(shipImg, ship.x, ship.y, ship.width, ship.height);
 
-    //ucitaj vanzemaljce
-    for(let i=0;i<alienArray.length;i++){
+    // ================= ALIENS =================
+    for(let i = 0; i < alienArray.length; i++){
         let alien = alienArray[i];
         if(alien.alive){
             alien.x += alienVelocityX;
-            //ako vanzemaljac ode do kraja ekrana
-            if(alien.x + alien.width >=board.width || alien.x<=0){
-                alienVelocityX*=-1;
-                alien.x +=alienVelocityX*2;
 
-                //pomeri vanzemaljce napred za jedan red kad dodirnu ivicu
-                for(let j=0;j<alienArray.length;j++){
-                    alienArray[j].y+=alienHeight;
+            if(alien.x + alien.width >= board.width || alien.x <= 0){
+                alienVelocityX *= -1;
+
+                for(let j = 0; j < alienArray.length; j++){
+                    alienArray[j].y += alienHeight;
                 }
             }
+
             context.drawImage(alien.img, alien.x, alien.y, alien.width, alien.height);
 
-            if(alien.y>=ship.y){
+            if(alien.y >= ship.y){
                 gameOver = true;
             }
         }
     }
 
-
-   for (let i = bulletArray.length - 1; i >= 0; i--) {
-     let bullet = bulletArray[i];
-    bullet.y += bulletVelocityY;
-
-    context.fillStyle = "white";
-    context.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
-
-    // kolizija
-    for (let j = 0; j < alienArray.length; j++) {
-        let alien = alienArray[j];
-        if (alien.alive && detectCollision(bullet, alien)) {
-            alien.alive = false;
-            alienCount--;
-            score += 100;
-
-            bulletArray.splice(i, 1); // ✅ metak odmah nestaje
-            break;
+    // ================= ALIEN SHOOTING TIMER =================
+    alienShootCooldown--;
+    if(alienShootCooldown <= 0){
+        alienShoot();
+        alienShootCooldown = alienShootRate;
     }
-  }
 
-  // van ekrana
-  if (bullet.y + bullet.height < 0) {
-    bulletArray.splice(i, 1);
-  }
-}
+    // ================= PLAYER BULLETS =================
+    for(let i = bulletArray.length - 1; i >= 0; i--){
+        let bullet = bulletArray[i];
+        bullet.y += bulletVelocityY;
 
+        context.fillStyle = "white";
+        context.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
 
+        // pogodak aliena
+        for(let j = 0; j < alienArray.length; j++){
+            let alien = alienArray[j];
+            if(alien.alive && detectCollision(bullet, alien)){
+                alien.alive = false;
+                alienCount--;
+                score += 100;
+                bulletArray.splice(i, 1);
+                break;
+            }
+        }
 
-    //sledeci nivo
-    if(alienCount == 0){
-        //povecaj broj vanzemaljaca u kolonama i redovima za 1
-        alienColumns = Math.min(alienColumns+1, columns/2 -2); // maks 16/2 - 2 = 6
-        alienRows = Math.min(alienRows+1,rows-4); // maks sa 16-4=12
-        alienVelocityX +=0.2; // povecava se brzina kretanja vanzemaljaca
+        // van ekrana
+        if(i < bulletArray.length && bullet.y + bullet.height < 0){
+            bulletArray.splice(i, 1);
+        }
+    }
+
+    // ================= ALIEN BULLETS =================
+    for(let i = alienBulletArray.length - 1; i >= 0; i--){
+        let b = alienBulletArray[i];
+        b.y += alienBulletVelocityY;
+
+        context.fillStyle = "red";
+        context.fillRect(b.x, b.y, b.width, b.height);
+
+        let shipRect = { x: ship.x, y: ship.y, width: ship.width, height: ship.height };
+        if(detectCollision(b, shipRect)){
+            alienBulletArray.splice(i, 1);
+                lives--;
+                if(lives <= 0){
+                    gameOver = true;
+            continue;
+        }
+    }
+
+        if(b.y > board.height){
+            alienBulletArray.splice(i, 1);
+        }
+    }
+
+    // ================= NEXT LEVEL =================
+    if(alienCount === 0){
+        alienColumns = Math.min(alienColumns + 1, columns / 2 - 2);
+        alienRows = Math.min(alienRows + 1, rows - 4);
+        alienVelocityX += 0.2;
+
         alienArray = [];
         bulletArray = [];
+        alienBulletArray = [];
         createAliens();
     }
 
-    // score
+    // ================= HUD =================
     context.fillStyle = "white";
     context.font = "16px 'Press Start 2P'";
-    context.fillText(score,5,20);
-
+    context.fillText("SCORE: " + score, 5, 20);
+    context.fillText("LIVES: " + lives, 5, 40);
 }
 
 function moveShip(e){
@@ -168,6 +211,7 @@ function moveShip(e){
     } else if(e.code == "ArrowRight" && ship.x + shipVelocityX + shipWidth <= board.width){
         ship.x+=shipVelocityX; //desno
     }
+
 }
 
 function createAliens(){
@@ -186,6 +230,22 @@ function createAliens(){
     }
     alienCount = alienArray.length;
 }
+
+function alienShoot() {
+  // izaberi random živog aliena
+  let aliveAliens = alienArray.filter(a => a.alive);
+  if (aliveAliens.length === 0) return;
+
+  let shooter = aliveAliens[Math.floor(Math.random() * aliveAliens.length)];
+
+  alienBulletArray.push({
+    x: shooter.x + shooter.width / 2 - 2,
+    y: shooter.y + shooter.height,
+    width: 4,
+    height: 10
+  });
+}
+
 
 function shoot(e) {
     if(gameOver){
@@ -212,4 +272,50 @@ function detectCollision(a,b){
         a.x+a.width>b.x &&      // gornje desno od A prestize gornje levo od B
         a.y<b.y+b.height &&     // gornje levo od A ne dostize donje levo of B
         a.y +a.height>b.y;  // donje levo od A prestize gornje levo od B
+}
+
+function drawGameOverScreen() {
+  // zatamni ekran
+  context.fillStyle = "rgba(0,0,0,0.75)";
+  context.fillRect(0, 0, board.width, board.height);
+
+  const cx = board.width / 2;
+  const cy = board.height / 2;
+
+  context.textAlign = "center";
+  context.textBaseline = "middle";
+  context.fillStyle = "white";
+
+  context.font = "22px 'Press Start 2P'";
+  context.fillText("GAME OVER", cx, cy - 40);
+
+  context.font = "12px 'Press Start 2P'";
+  context.fillText("SCORE: " + score, cx, cy + 5);
+  context.fillText("Press R to Restart", cx, cy + 35);
+
+  // vrati default ako negde drugde koristiš left/top
+  context.textAlign = "left";
+  context.textBaseline = "alphabetic";
+}
+
+function restartGame(){
+  gameOver = false;
+  score = 0;
+
+  lives = 3;
+  shieldActive = false;
+
+  // reset level / difficulty
+  alienRows = 2;
+  alienColumns = 3;
+  alienVelocityX = 1;
+  alienShootCooldown = 0;
+
+  // očisti sve nizove
+  bulletArray = [];
+  alienBulletArray = [];
+
+  // respawn aliens
+  alienArray = [];
+  createAliens();
 }
