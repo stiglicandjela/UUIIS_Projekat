@@ -39,6 +39,9 @@ let alienVelocityX = 1; // brzina kretanja vanzemaljca
 let bulletArray = [];
 let bulletVelocityY = -10; // brzina metaka
 
+let score = 0;
+let gameOver = false;
+
 
 window.onload = function(){
     board = this.document.getElementById("board");
@@ -66,6 +69,10 @@ window.onload = function(){
 function update(){
     requestAnimationFrame(update);
 
+    if(gameOver){
+        return;
+    }
+
     context.clearRect(0,0,board.width,board.height);
 
     context.drawImage(shipImg,ship.x,ship.y,ship.width,ship.height);
@@ -86,6 +93,10 @@ function update(){
                 }
             }
             context.drawImage(alienImg,alien.x,alien.y,alien.width,alien.height);
+
+            if(alien.y>=ship.y){
+                gameOver = true;
+            }
         }
     }
 
@@ -112,11 +123,23 @@ function update(){
         bulletArray.shift(); // obrise prvi element niza
     }
 
-    
+    //sledeci nivo
+    if(alienCount == 0){
+        //povecaj broj vanzemaljaca u kolonama i redovima za 1
+        alienColumns = Math.min(alienColumns+1, columns/2 -2); // maks 16/2 - 2 = 6
+        alienRows = Math.min(alienRows+1,rows-4); // maks sa 16-4=12
+        alienVelocityX +=0.2; // povecava se brzina kretanja vanzemaljaca
+        alienArray = [];
+        bulletArray = [];
+        createAliens();
+    }
 
 }
 
 function moveShip(e){
+    if(gameOver){
+        return;
+    }
     if (e.code == "ArrowLeft" && ship.x - shipVelocityX >= 0){
         ship.x -=shipVelocityX; //levo
     } else if(e.code == "ArrowRight" && ship.x + shipVelocityX + shipWidth <= board.width){
@@ -142,6 +165,9 @@ function createAliens(){
 }
 
 function shoot(e) {
+    if(gameOver){
+        return;
+    }
     if (e.code =="Space"){
         //pucanje
         let bullet = {
