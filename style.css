@@ -25,8 +25,6 @@ body{
      font-style: normal;
     line-height: 1.5;
     color: var(--color-text);
-    background-image: url("images/BlackKira_GettyImages_PocetnaPozadina.jpg");
-    background-attachment: fixed;
     cursor: url("images/cursor1.png") 0 0, auto;
 }
 
@@ -65,7 +63,6 @@ a{
     box-shadow: 0 4px 30px rgba(0,0,0,0.1);
     backdrop-filter: blur(var(--blur-value));
     font-size: larger;
-
 }
 
 a {

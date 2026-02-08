@@ -1,11 +1,11 @@
 // board
 let tileSize = 32;
-let rows = 16;
-let columns = 16;
+let rows = 20;
+let columns = 20;
 
 let board;
-let boardWidth = tileSize * columns; // 32*16
-let boardHeight = tileSize * rows; // 32*16
+let boardWidth = tileSize * columns; 
+let boardHeight = tileSize * rows; 
 
 //ship
 let shipWidth = tileSize*2;
@@ -49,10 +49,8 @@ let alienShootRate = 55;        // sto manji broj to vise pucaju
 // zivoti / stit
 let lives = 3;
 
-
 let score = 0;
 let gameOver = false;
-
 
 window.onload = function(){
     board = this.document.getElementById("board");
@@ -66,7 +64,7 @@ window.onload = function(){
     shipImg.onload = function(){
     context.drawImage(shipImg,ship.x,ship.y,ship.width,ship.height);
 }
-
+    //vanzemaljci
     alienImgs = [new Image(),new Image(),new Image(),new Image()];
     alienImgs[0].src = "imagesSI/alien.png";
     alienImgs[1].src = "imagesSI/alien-cyan.png"; 
@@ -86,10 +84,6 @@ window.onload = function(){
 }
     this.document.addEventListener("keydown", moveShip);
     this.document.addEventListener("keyup", shoot);
-    document.addEventListener("keydown", function(e){
-    if (e.code === "KeyR") restartGame();
-    });
-
 }
 
 function update(){
@@ -105,7 +99,7 @@ function update(){
     // brod
     context.drawImage(shipImg, ship.x, ship.y, ship.width, ship.height);
 
-    // ================= ALIENS =================
+    // ================= VANZEMALJCI =================
     for(let i = 0; i < alienArray.length; i++){
         let alien = alienArray[i];
         if(alien.alive){
@@ -127,7 +121,7 @@ function update(){
         }
     }
 
-    // ================= ALIEN SHOOTING TIMER =================
+    // ================= PUCANJE VANZEMALJACA =================
     alienShootCooldown--;
     if(alienShootCooldown <= 0){
         alienShoot();
@@ -275,7 +269,7 @@ function detectCollision(a,b){
 }
 
 function drawGameOverScreen() {
-  // zatamni ekran
+  // overlay
   context.fillStyle = "rgba(0,0,0,0.75)";
   context.fillRect(0, 0, board.width, board.height);
 
@@ -291,31 +285,10 @@ function drawGameOverScreen() {
 
   context.font = "12px 'Press Start 2P'";
   context.fillText("SCORE: " + score, cx, cy + 5);
-  context.fillText("Press R to Restart", cx, cy + 35);
+  context.fillText("Refresh to Restart", cx, cy + 35);
 
   // vrati default ako negde drugde koristiš left/top
   context.textAlign = "left";
   context.textBaseline = "alphabetic";
 }
 
-function restartGame(){
-  gameOver = false;
-  score = 0;
-
-  lives = 3;
-  shieldActive = false;
-
-  // reset level / difficulty
-  alienRows = 2;
-  alienColumns = 3;
-  alienVelocityX = 1;
-  alienShootCooldown = 0;
-
-  // očisti sve nizove
-  bulletArray = [];
-  alienBulletArray = [];
-
-  // respawn aliens
-  alienArray = [];
-  createAliens();
-}
