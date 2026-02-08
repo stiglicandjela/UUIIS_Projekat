@@ -35,6 +35,11 @@ let alienColumns = 3;
 let alienCount = 0; // broj vanzemaljaca
 let alienVelocityX = 1; // brzina kretanja vanzemaljca
 
+//metci
+let bulletArray = [];
+let bulletVelocityY = -10; // brzina metaka
+
+
 window.onload = function(){
     board = this.document.getElementById("board");
     board.width = boardWidth;
@@ -107,4 +112,17 @@ function createAliens(){
         }
     }
     alienCount = alienArray.length;
+}
+
+function shoot(e) {
+    if (e.code =="Space"){
+        //pucanje
+        let bullet = {
+            x: ship.x + shipWidth*15/32,
+            y : ship.y,
+            width: tileSize/8,
+            height: tileSize/2,
+            used: false
+        }
+    }
 }
