@@ -96,11 +96,23 @@ function update(){
         bullet.y+=bulletVelocityY;
         context.fillStyle="white";
         context.fillRect(bullet.x,bullet.y,bullet.width,bullet.height);
+
+        //kolizija metka sa vanzemaljcem
+        for(let j=0;j<alienArray.length;j++){
+            let alien = alienArray[j];
+            if(!bullet.used && alien.alive && detectCollision(bullet,alien)){
+                bullet.used = true;
+                alien.alive = false;
+                alienCount--;
+            }
+        }
     }
     //obrisi metke
     while(bulletArray>0 && (bulletArray[0].used || bulletArray[0].y<0)){
         bulletArray.shift(); // obrise prvi element niza
     }
+
+    
 
 }
 
